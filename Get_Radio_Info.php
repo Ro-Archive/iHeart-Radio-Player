@@ -4,7 +4,7 @@ if (isset($_POST['radio_name'])) {
     $radioName = $_POST['radio_name'];
 
     // Construct the API URL with the provided radio name
-    $apiUrl = 'https://ro-archive.xyz/iHeartAPI/?name=' . urlencode($radioName);
+    $apiUrl = '/iHeartAPI/?name=' . urlencode($radioName);
 
     $ch = curl_init($apiUrl);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
