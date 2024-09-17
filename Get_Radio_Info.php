@@ -11,14 +11,12 @@ if (isset($_POST['radio_name'])) {
     $apiResponse = curl_exec($ch);
     curl_close($ch);
 
-    // Decode the JSON response
     $responseData = json_decode($apiResponse, true);
 
     if ($responseData && $responseData['success']) {
         $secureShoutcastStream = getSecureShoutcastStreamUrl($responseData);
         $playlistUrl = getPlaylistUrl($responseData);
 
-        // Generate HTML5 audio player with Shoutcast stream for audio
         $html = '<audio id="radio-player" controls autoplay>';
         $html .= '<source id="shoutcast-source" type="audio/mp3" src="' . $secureShoutcastStream . '">';
         $html .= 'Your browser does not support the audio tag.';
@@ -52,7 +50,6 @@ function getSecureShoutcastStreamUrl($responseData) {
 
 function getPlaylistUrl($responseData) {
     if (isset($responseData['stream_urls']) && is_array($responseData['stream_urls'])) {
-        // Loop through stream URLs to find the playlist URL
         foreach ($responseData['stream_urls'] as $stream) {
             if ($stream['type'] === 'playlist') {
                 return $stream['url'];
